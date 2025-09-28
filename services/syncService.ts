@@ -1,9 +1,10 @@
 import type { SyncEventPayload } from '../types';
 
-// --- ACTION REQUIRED ---
-// Go to https://www.pubnub.com/ to get your free API keys.
-const PUBLISH_KEY = "YOUR_PUBLISH_KEY_HERE"; // Replace with your PubNub Publish Key
-const SUBSCRIBE_KEY = "YOUR_SUBSCRIBE_KEY_HERE"; // Replace with your PubNub Subscribe Key
+// --- Demo Keys ---
+// These are PubNub's public demo keys. They allow the app to work out-of-the-box.
+// For a production application, you should get your own free keys from https://www.pubnub.com/
+const PUBLISH_KEY = "pub-c-78806dd4-42a6-4b4a-aed4-32555b685511";
+const SUBSCRIBE_KEY = "sub-c-17b24656-077b-434e-9878-312c1b820713";
 
 declare global {
     interface Window {
