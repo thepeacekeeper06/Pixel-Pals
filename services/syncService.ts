@@ -16,6 +16,12 @@ let pubnub: any = null;
 let currentChannel: string | null = null;
 const pubnubListener = {
     message: (messageEvent: any) => {
+        // CRITICAL FIX: Ignore messages sent by the current user.
+        // This prevents the client from reacting to its own events, which caused the handshake to fail.
+        if (messageEvent.publisher === pubnub.getUUID()) {
+            return;
+        }
+
         const payload = messageEvent.message as SyncEventPayload;
         // Dispatch a global custom event that React components can listen to.
         // This decouples the components from the sync service.
