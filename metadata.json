@@ -1,0 +1,6 @@
+
+{
+  "name": "Pixel Pals - Real-time Drawing Game",
+  "description": "A real-time, two-player game hub. Set your name, create a private room, and invite a friend to draw on a shared canvas with live cursors, fun templates, and multiple brush styles. React with emojis and messages as you create together!",
+  "requestFramePermissions": []
+}
