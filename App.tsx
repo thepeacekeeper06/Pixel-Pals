@@ -39,23 +39,21 @@ function App() {
     const handleSyncEvent = useCallback((event: SyncEventPayload) => {
         switch (event.type) {
             case GameEvent.PLAYER_JOIN:
-                if (isHost) {
-                    const newOpponent = event.payload.player;
-                    setOpponent(newOpponent);
-                    // Host confirms join and sends their info back
-                    syncService.sendEvent({
-                        type: GameEvent.GAME_START,
-                        payload: { opponent: player!, gameType: gameType! }
-                    });
-                    setGameState('playing');
-                }
+                // This is only ever received by the host from the joining player.
+                const newOpponent = event.payload.player;
+                setOpponent(newOpponent);
+                // Host confirms the join and sends their info back to start the game.
+                syncService.sendEvent({
+                    type: GameEvent.GAME_START,
+                    payload: { opponent: player!, gameType: gameType! }
+                });
+                setGameState('playing');
                 break;
             case GameEvent.GAME_START:
-                 if (!isHost) {
-                    setOpponent(event.payload.opponent);
-                    setGameType(event.payload.gameType);
-                    setGameState('playing');
-                }
+                 // This is only ever received by the guest from the host.
+                setOpponent(event.payload.opponent);
+                setGameType(event.payload.gameType);
+                setGameState('playing');
                 break;
             case GameEvent.PLAYER_UPDATE:
                  if (event.payload.player.id !== player?.id) {
@@ -63,7 +61,7 @@ function App() {
                 }
                 break;
         }
-    }, [isHost, player, gameType]);
+    }, [player, gameType]);
 
     useEffect(() => {
         const handleGlobalSyncEvent = (event: Event) => {
